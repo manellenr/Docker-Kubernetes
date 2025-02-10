@@ -32,3 +32,23 @@ Alternatively, you can run the container using Docker Desktop by selecting the b
 
 ![Screenshot from 2025-01-30 19-59-12](https://github.com/user-attachments/assets/d89d0c60-0e7c-4bb7-a5f1-e097faac38d1)
 
+## Share image with kubernetes local cluster
+
+```sh
+su - $USER
+
+microk8s enable registry
+
+docker build -t localhost:32000/flask-app:registry .
+
+docker push localhost:32000/flask-app:registry
+
+microk8s ctr image pull --plain-http localhost:32000/flask-app:registry
+
+microk8s kubectl apply -f flaskapp.yaml
+```
+
+## Check the health of the k8s cluster
+```sh
+microk8s kubectl delete -f flaskapp.yaml
+```
