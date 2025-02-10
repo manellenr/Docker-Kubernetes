@@ -52,3 +52,4 @@ microk8s kubectl apply -f flaskapp.yaml
 ```sh
 microk8s kubectl delete -f flaskapp.yaml
 ```
+![Uploading Screenshot from 2025-02-10 20-33-01.png…]()
