@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-app
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      flask-app: web
+  template:
+    metadata:
+      labels:
+        flask-app: web
+    spec:
+      containers:
+        - name: flask-app
+          image: localhost:32000/flask-app:registry
+          imagePullPolicy: Never
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: flask-app-entrypoint
+  namespace: default
+spec:
+  type: NodePort
+  selector:
+    flask-app: web
+  ports:
+    - port: 5000
+      targetPort: 5000
+      nodePort: 30001
